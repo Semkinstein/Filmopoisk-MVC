@@ -1,0 +1,150 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --header: #4B5579;
+    --white-text: #F9EFF1;
+    --section-1: #F9EFF1;
+    --section-2: #E3D3B7;
+    --footer: #17202F;
+}
+
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 920px;
+    padding: 0 10px;
+}
+
+h1{
+    font-size: 1.5rem;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: var(--header);
+    width: 100%;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    margin: 0 auto;
+}
+
+    .header-content > * {
+        margin: auto 0;
+        height: auto;
+    }
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--white-text);
+}
+
+.inputs {
+    width: 15rem;
+    max-width: 50%;
+}
+
+    .inputs * {
+        width: 100%;
+        border-radius: 4px;
+    }
+
+.film {
+    padding: 2rem 0;
+    background-color: var(--section-1);
+}
+
+.film-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.poster img {
+    max-width: 100%;
+    width: 400px;
+}
+
+.film-info {
+    line-height: 2rem;
+}
+
+    .film-info p {
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+        .film-info p:first-child {
+            border-top: none;
+            font-size: 1.5rem;
+        }
+
+.other-films {
+    padding: 2rem 0;
+    background-color: var(--section-2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.5rem;
+    border: none;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+td:nth-child(even),
+th:nth-child(even) {
+    text-align: right;
+}
+
+/*
+    footer
+*/
+footer {
+    background-color: var(--footer);
+}
+
+.rights {
+    padding: 4rem;
+    font-size: 1.5rem;
+    color: var(--white-text);
+    text-align: center;
+    height: 10rem;
+}
+
+
+@media (min-width: 768px) {
+    .film-data {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .film-info {
+        margin-left: 1rem;
+        flex-basis: 70%;
+    }
+}

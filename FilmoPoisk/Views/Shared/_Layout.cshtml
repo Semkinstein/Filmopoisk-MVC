@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmopoisk</title>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+</head>
+
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="header-content">
+                <div class="logo">FilmoPoisk</div>
+                <div class="inputs">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.TextBox("SearchString");
+                    }
+                    @*<form method="post" action="">
+                        <input type="text" name="Query" class="inputs_search">
+                    </form>*@
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="film">
+        @RenderSection("Film")
+    </section>
+
+    <section class="other-films">
+        @RenderSection("OtherFilms")
+    </section>
+
+    <footer>
+        <div class="rights wrapper">All rights reserved</div>
+    </footer>
+</body>
+
+</html>
