@@ -1,0 +1,33 @@
+﻿@using Filmopoisk.Models
+@model Film
+
+@*Вьюшка для вывода информации о фильме через модель Film*@
+
+<div class="wrapper film-data">
+    <div class="poster">
+        <img src="~/Images/PosterPlaceholder.png">
+    </div>
+    <div class="film-info">
+        @{
+            <p>@Model.Name</p>
+            <p><b>Страна: </b> @Model.Country</p>
+            <p><b>Жанр: </b> @Model.Genre</p>
+            <p class="actors">
+                <b>В главных ролях: </b>
+                @foreach (Actor actor in Model.Actors)
+                {
+                    <i>
+                        @* Ссылка для асинхорнного запроса обновления секции с информацией о фильме *@
+
+                        @Ajax.ActionLink(actor.Name, "FilmByActor", new { id = actor.Id },
+                                    new AjaxOptions { UpdateTargetId= "films-list" }, null)
+                    </i>
+                }
+            </p>
+            <p><b>Премьера в мире: </b> @Model.ReleaseDate.ToLongDateString()</p>
+            <p>@Model.Description</p>
+            <p><b>Оценка: </b> @Model.Score ★</p>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@using Filmopoisk.Models
+@model IEnumerable<Film>
+
+@* Вьюшка для вывда списка фильмов *@
+
+<div class="wrapper">
+    <h1>Другие фильмы</h1>
+    <table>
+        <tr>
+            <th>Название</th>
+            <th>Оценка</th>
+        </tr>
+        @{
+            foreach (var film in Model)
+            {
+                string filmName = film.Name;
+
+                <tr>
+                    <td>
+                        <a href="#film-details">
+                            @* Ссылка для асинхорнного запроса обновления секции с информацией о фильме *@
+
+                            @Ajax.ActionLink(filmName, "FilmDetails", new { id = film.Id },
+                                    new AjaxOptions { UpdateTargetId="film-details" }, null)
+                        </a>
+                    </td>
+
+                    <td>@film.Score ★</td>
+                </tr>
+
+            }
+        }
+
+    </table>
+</div>
+

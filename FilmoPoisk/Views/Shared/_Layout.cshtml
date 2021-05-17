@@ -10,29 +10,14 @@
 </head>
 
 <body>
-    <header>
-        <div class="wrapper">
-            <div class="header-content">
-                <div class="logo">FilmoPoisk</div>
-                <div class="inputs">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.TextBox("SearchString");
-                    }
-                    @*<form method="post" action="">
-                        <input type="text" name="Query" class="inputs_search">
-                    </form>*@
-                </div>
-            </div>
-        </div>
-    </header>
+    
 
-    <section class="film">
+    @*<section class="film">
         @RenderSection("Film")
-    </section>
+    </section>*@
 
     <section class="other-films">
-        @RenderSection("OtherFilms")
+        @*@RenderSection("OtherFilms")*@
     </section>
 
     <footer>

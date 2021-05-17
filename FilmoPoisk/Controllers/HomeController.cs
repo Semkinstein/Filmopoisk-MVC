@@ -12,54 +12,66 @@ namespace FilmoPoisk.Controllers
         
         private FilmContext filmContext = new FilmContext();
 
-        public ActionResult Index(string searchString)
+
+        public ActionResult Index()
         {
-            var films = from m in filmContext.Films
-                         select m;
-            
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                films = films.Where(film => film.Name.Contains(searchString)
-                                    || film.Genre.Contains(searchString)
-                                    ||  film.Actors.Select(n => n.Name).Contains(searchString) );
-            }
-
-            int filmCount = filmContext.Films.Count();
-            int id = new Random().Next(1, filmCount+1);
-
-            Film randomFilm = filmContext.Films.Find(id);
-            ViewBag.RandomFilm = randomFilm;
-
-            if(films != null)
-            {
-                ViewBag.Films = films;
-            }
-            else
-            {
-                ViewBag.Films = filmContext.Films;
-            }
-           
             return View();
         }
 
 
-        // Поиск определенного фильма или рандомного, в случае если определенный не задан
-        public ActionResult Details(int id = 0)
+        // Поиск фильмов по строке из формы
+        public ActionResult FilmSearch(string searchString)
         {
-            if(id == 0)
+            var films = from m in filmContext.Films
+                        select m;
+
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                int filmCount = filmContext.Films.Count();
-                id = new Random().Next(1, filmCount);
+                films = films.Where(film => film.Name.Contains(searchString)
+                                    || film.Genre.Contains(searchString)
+                                    || film.Actors.Select(n => n.Name).Contains(searchString));
+            }
+            else
+            {
+                return PartialView(filmContext.Films.ToList());
             }
 
-            Film randomFilm = filmContext.Films.Find(id);
-            if(randomFilm == null)
+            if (films.Count() == 0)
+            {
+                return PartialView("Фильмов не найдено(");
+            }
+
+            return PartialView(films.ToList());
+        }
+
+        // Поиск фильмов по клику на актера
+        public ActionResult FilmByActor(int id)
+        {
+            var films = from m in filmContext.Films
+                        select m;
+
+            films = films.Where(film => film.Actors.Select(n => n.Id).Contains(id));
+            if (films.Count() == 0)
+            {
+                return PartialView("Фильмов не найдено(");
+            }
+
+            return PartialView("FilmSearch", films.ToList());
+        }
+
+        // Передача данных о фильме в частичное представление
+        public ActionResult FilmDetails(int id = 1)
+        {
+            Film selectedFilm = filmContext.Films.Find(id);
+            if(selectedFilm == null)
             {
                 return HttpNotFound();
             }
-            return View(randomFilm);
+            return PartialView(selectedFilm);
         }
 
+        // Закрытие БД
         protected override void Dispose(bool disposing)
         {
             filmContext.Dispose();
